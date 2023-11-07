@@ -9,10 +9,10 @@
 
     filesystemWatchers.enable = true;
   };
-
-  maps = {
-    normalVisualOp = {
-      "<leader>nt".action = ":NvimTreeFocus<CR>";
-    };
-  };
+  keymaps = [
+    {
+      key = "<leader>nt";
+      action = ":NvimTreeFocus<CR>";
+    }
+  ];
 }
