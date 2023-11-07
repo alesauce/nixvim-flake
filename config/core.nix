@@ -17,6 +17,7 @@
       swapfile = false;
       backup = false;
       undofile = true;
+      termguicolors = true;
 
       # Cursor and line formatting
       cursorline = true;
