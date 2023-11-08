@@ -39,7 +39,7 @@
           checks = {
             default = pkgs.nixvimLib.check.mkTestDerivationFromNvim {
               inherit nvim;
-              name = "A nixvim configuration";
+              name = "Alesauce's nixvim configuration test";
             };
             pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
               src = ./.;
@@ -54,7 +54,7 @@
 
           packages = rec {
             default = full;
-            full = nvim;
+            full = nvim + pkgs.jdt-language-server;
           };
 
           devShells = {
