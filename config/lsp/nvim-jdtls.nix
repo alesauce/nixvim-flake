@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   files."ftplugin/java.lua" = {
     extraPackages = [
       pkgs.jdt-language-server

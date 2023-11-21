@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Using this file to store all the "one-liner" plugins that don't require a bunch of additional
   # config options
   plugins = {
