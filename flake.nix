@@ -54,7 +54,7 @@
 
           packages = rec {
             default = full;
-            full = nvim + pkgs.jdt-language-server;
+            full = nvim;
           };
 
           devShells = {
