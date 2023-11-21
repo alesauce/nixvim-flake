@@ -1,5 +1,7 @@
 {
   plugins = {
+    cmp-nvim-lsp.enable = true;
+    cmp-nvim-lsp-signature-help.enable = true;
     nvim-cmp = {
       enable = true;
       sources = [

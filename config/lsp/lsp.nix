@@ -1,39 +1,63 @@
 {
-  plugins = {
-    lsp = {
-      enable = true;
-      servers = {
-        bashls.enable = true;
-        gopls.enable = true;
-        jsonls.enable = true;
-        lua-ls.enable = true;
-        nil_ls.enable = true;
-        pyright.enable = true;
-        tsserver.enable = true;
-        yamlls.enable = true;
-      };
-      keymaps = {
-        silent = true;
-        diagnostic = {
-          "<leader>f" = "open_float";
-          "[d" = "goto_prev";
-          "]d" = "goto_next";
-          "<leader>q" = "setloclist";
+  config = {
+    plugins = {
+      lsp = {
+        enable = true;
+        servers = {
+          bashls.enable = true;
+          gopls.enable = true;
+          jsonls.enable = true;
+          lua-ls.enable = true;
+          nil_ls.enable = true;
+          pyright.enable = true;
+          tsserver.enable = true;
+          yamlls.enable = true;
         };
-        lspBuf = {
-          "gD" = "declaration";
-          "gd" = "definition";
-          "K" = "hover";
-          "gi" = "implementation";
-          "<C-k>" = "signature_help";
-          "<leader>rn" = "rename";
-          "gr" = "references";
+        keymaps = {
+          silent = true;
+          diagnostic = {
+            "<leader>f" = "open_float";
+            "[d" = "goto_prev";
+            "]d" = "goto_next";
+            "<leader>q" = "setloclist";
+          };
+          lspBuf = {
+            "gD" = "declaration";
+            "gd" = "definition";
+            "K" = "hover";
+            "gi" = "implementation";
+            "<C-k>" = "signature_help";
+            "<leader>rn" = "rename";
+            "gr" = "references";
+          };
         };
       };
+      lspkind = {
+        enable = true;
+      };
+      none-ls.enable = true;
     };
-    lspkind = {
-      enable = true;
-    };
-    none-ls.enable = true;
+    extraConfigLuaPost = ''
+      function bemol()
+       local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
+       local ws_folders_lsp = {}
+       if bemol_dir then
+        local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
+        if file then
+
+         for line in file:lines() do
+          table.insert(ws_folders_lsp, line)
+         end
+         file:close()
+        end
+       end
+
+       for _, line in ipairs(ws_folders_lsp) do
+        vim.lsp.buf.add_workspace_folder(line)
+       end
+
+      end
+      bemol()
+    '';
   };
 }
