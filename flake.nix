@@ -47,7 +47,7 @@
         checks = {
           default = pkgs.nixvimLib.check.mkTestDerivationFromNvim {
             inherit nvim;
-            name = "Alesauce's nixvim configuration test";
+            name = "Nixvim configuration test";
           };
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
