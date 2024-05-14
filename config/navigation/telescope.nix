@@ -20,7 +20,7 @@
       };
     };
     extensions = {
-      file_browser = {
+      file-browser = {
         enable = true;
         grouped = true;
         depth = 1;
