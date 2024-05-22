@@ -61,6 +61,7 @@
         formatter = pkgs.alejandra;
 
         packages = rec {
+          inherit (pkgs) jq;
           default = full;
           full = nvim;
         };
