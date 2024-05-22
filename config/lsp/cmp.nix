@@ -5,7 +5,7 @@
     cmp = {
       enable = true;
       autoEnableSources = true;
-      extraOptions = {
+      settings = {
         mapping = {
           "<C-s>" = "cmp.mapping.scroll_docs(-4)";
           "<C-t>" = "cmp.mapping.scroll_docs(4)";

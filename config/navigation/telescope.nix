@@ -1,35 +1,41 @@
 {
   plugins.telescope = {
     enable = true;
-    defaults = {
-      prompt_prefix = " ";
-      selection_caret = " ";
-      path_display = ["smart"];
-      mappings = {
-        i = {
-          "<C-c>" = "close";
-          "<C-n>" = "move_selection_next";
-          "<C-e>" = "move_selection_previous";
-        };
+    settings = {
+      defaults = {
+        prompt_prefix = " ";
+        selection_caret = " ";
+        path_display = ["smart"];
+        mappings = {
+          i = {
+            "<C-c>" = "close";
+            "<C-n>" = "move_selection_next";
+            "<C-e>" = "move_selection_previous";
+          };
 
-        n = {
-          "<esc>" = "close";
-          "n" = "move_selection_next";
-          "e" = "move_selection_previous";
+          n = {
+            "<esc>" = "close";
+            "n" = "move_selection_next";
+            "e" = "move_selection_previous";
+          };
         };
       };
     };
     extensions = {
       file-browser = {
         enable = true;
-        grouped = true;
-        depth = 1;
-        autoDepth = true;
+        settings = {
+          grouped = true;
+          depth = 1;
+          autoDepth = true;
+        };
       };
-      media_files = {
+      media-files = {
         enable = true;
-        filetypes = ["png" "webp" "jpg" "jpeg"];
-        find_cmd = "rg";
+        settings = {
+          filetypes = ["png" "webp" "jpg" "jpeg"];
+          find_cmd = "rg";
+        };
       };
       # TODO: add frecency extension - https://github.com/nvim-telescope/telescope-frecency.nvim
       # nixvim docs: https://nix-community.github.io/nixvim/#_plugins_telescope_extensions_frecency_enable

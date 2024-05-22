@@ -15,7 +15,7 @@
         };
       }
     ];
-    options = {
+    opts = {
       showmode = false;
       swapfile = false;
       backup = false;
