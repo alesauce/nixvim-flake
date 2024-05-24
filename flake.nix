@@ -68,7 +68,10 @@
 
         devShells = {
           default = with pkgs;
-            mkShell {inherit (self'.checks.pre-commit-check) shellHook;};
+            mkShell {
+              inherit (self'.checks.pre-commit-check) shellHook;
+              nativeBuildInputs = [jq];
+            };
         };
       };
     };
