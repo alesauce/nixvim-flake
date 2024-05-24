@@ -57,9 +57,9 @@ jobs:
             .packages
             | to_entries
             | map({
-              name: "platformBuild-\(.key)"
-              platform: .key
-              evalOnly: false
+              name: "platformBuild-\(.key)",
+              platform: .key,
+              evalOnly: false,
               attr: "packages.\(.key).\(.value.default.name)"
             })
             | map(
