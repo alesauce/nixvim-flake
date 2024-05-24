@@ -1,10 +1,11 @@
-{
+{pkgs, ...}: {
   # TODO: configure terminal emulator: https://neovim.io/doc/user/nvim_terminal_emulator.html#terminal-emulator
   config = {
     globals = {
       mapleader = " ";
       maplocalleader = " ";
     };
+
     keymaps = [
       {
         key = "<Space>";
@@ -15,6 +16,7 @@
         };
       }
     ];
+
     opts = {
       showmode = false;
       swapfile = false;
@@ -35,6 +37,7 @@
       shiftwidth = 4;
       smartindent = true;
     };
+
     autoCmd = [
       {
         event = "FileType";
@@ -42,8 +45,16 @@
         command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
       }
     ];
+
     extraConfigLua = ''
       vim.opt.listchars:append "eol:↴"
     '';
+
+    extraPackages = with pkgs; [
+      jdt-language-server
+    ];
+
+    viAlias = true;
+    vimAlias = true;
   };
 }

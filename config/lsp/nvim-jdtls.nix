@@ -1,8 +1,5 @@
 {pkgs, ...}: {
   files."ftplugin/java.lua" = {
-    extraPackages = [
-      pkgs.jdt-language-server
-    ];
     plugins.nvim-jdtls = {
       enable = true;
       data = ".idea/nvim-jdtls";
