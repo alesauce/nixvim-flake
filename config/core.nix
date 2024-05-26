@@ -50,10 +50,6 @@
       vim.opt.listchars:append "eol:↴"
     '';
 
-    extraPackages = with pkgs; [
-      jdt-language-server
-    ];
-
     viAlias = true;
     vimAlias = true;
   };

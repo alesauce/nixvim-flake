@@ -1,9 +1,18 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   files."ftplugin/java.lua" = {
+    extraPackages = with pkgs; [
+      jdt-language-server
+    ];
+
     plugins.nvim-jdtls = {
       enable = true;
       data = ".idea/nvim-jdtls";
     };
+
     extraConfigLua = ''
       local jdtls = require("jdtls")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -30,7 +39,7 @@
       local config = {
        capabilities = capabilities,
        cmd = {
-        "${pkgs.jdt-language-server}/bin/jdt-language-server",
+        "${lib.getExe pkgs.jdt-language-server}",
         "--jvm-arg=-javaagent:" .. home .. "/Developer/lombok.jar",
         "-data",
         eclipse_workspace,
