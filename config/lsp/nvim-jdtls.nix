@@ -40,7 +40,6 @@
        capabilities = capabilities,
        cmd = {
         "${lib.getExe pkgs.jdt-language-server}",
-        "--jvm-arg=-javaagent:" .. home .. "/Developer/lombok.jar",
         "-data",
         eclipse_workspace,
         "--add-modules=ALL-SYSTEM",
