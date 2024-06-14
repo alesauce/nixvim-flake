@@ -18,7 +18,7 @@ This flake is a standalone [NixVim](https://github.com/nix-community/nixvim) con
 Run the following command:
 
 ```
-nix run "github:alesauce/nixvim-flake <file name>"
+nix run "github:alesauce/nixvim-flake" <file name>
 ```
 
 ### In another flake
