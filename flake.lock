@@ -237,6 +237,30 @@
         "type": "github"
       }
     },
+    "nix-fast-build": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1715803356,
+        "narHash": "sha256-wvsg/UMM/jekzgbggH56KLZJzRmwrB9ErevaXXyWyqc=",
+        "owner": "Mic92",
+        "repo": "nix-fast-build",
+        "rev": "cfff239d93716e92f6467f8953d8f8c12da1892a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-fast-build",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1718160348,
@@ -292,7 +316,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
         "lastModified": 1718656037,
@@ -334,6 +358,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "nix-fast-build": "nix-fast-build",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "pre-commit-hooks": "pre-commit-hooks"
@@ -355,6 +380,27 @@
       }
     },
     "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-fast-build",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714058656,
+        "narHash": "sha256-Qv4RBm4LKuO4fNOfx9wl40W2rBbv5u5m+whxRYUMiaA=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "c6aaf729f34a36c445618580a9f95a48f5e4e03f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
           "nixvim",
