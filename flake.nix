@@ -54,6 +54,8 @@
             hooks = {
               statix.enable = true;
               alejandra.enable = true;
+              actionlint.enable = true;
+              deadnix.enable = true;
             };
           };
         };
