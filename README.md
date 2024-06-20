@@ -2,9 +2,12 @@
 
 This flake is a standalone [NixVim](https://github.com/nix-community/nixvim) configuration. Feel free to use it or riff on it as you please! Just note that this is obviously my personal config and is in no way, shape, or form meant to be a general-purpose config.
 
+A lot of credit goes to [siph's nixvim flake](https://github.com/siph/nixvim-flake/tree/master), which is where I got the majority of my inspiration.
+
 ## Development
 ### Run once
-1. Install Nix if you don't have it already. I use the [Determinate Systems Nix installer.](https://github.com/DeterminateSystems/nix-installer).1. Install [direnv](https://github.com/direnv/direnv)
+1. Install Nix if you don't have it already. I use the [Determinate Systems Nix installer.](https://github.com/DeterminateSystems/nix-installer).
+1. Install [direnv](https://github.com/direnv/direnv)
 1. Clone the repo
 1. Run this command to allow direnv to set up the dev environment: `cd nixvim-flake; direnv allow`
 
