@@ -79,10 +79,9 @@
 
         formatter = pkgs.alejandra;
 
-        packages = rec {
-          inherit (pkgs) jq;
-          default = full;
-          full = nvim;
+        packages = {
+          inherit (pkgs) jq nix-fast-build;
+          default = nvim;
         };
 
         devShells = {
