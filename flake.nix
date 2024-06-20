@@ -3,11 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    nix-fast-build = {
+      url = "github:Mic92/nix-fast-build";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,16 +65,23 @@
             hooks = {
               statix.enable = true;
               alejandra.enable = true;
+              actionlint.enable = true;
+              deadnix = {
+                enable = true;
+                settings = {
+                  noLambdaArg = true;
+                  noLambdaPatternNames = true;
+                };
+              };
             };
           };
         };
 
         formatter = pkgs.alejandra;
 
-        packages = rec {
-          inherit (pkgs) jq;
-          default = full;
-          full = nvim;
+        packages = {
+          inherit (pkgs) jq nix-fast-build;
+          default = nvim;
         };
 
         devShells = {
