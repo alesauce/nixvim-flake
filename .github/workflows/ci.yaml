@@ -62,7 +62,7 @@ jobs:
               name: "platformBuild-\(.key)",
               platform: .key,
               evalOnly: false,
-              attr: "packages.\(.key).\(.value.name)"
+              attr: "packages.\(.key).default"
             })
             | map(
               if .platform  == "x86_64-linux" then .runsOn="ubuntu-latest"
