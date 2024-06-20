@@ -55,7 +55,13 @@
               statix.enable = true;
               alejandra.enable = true;
               actionlint.enable = true;
-              deadnix.enable = true;
+              deadnix = {
+                enable = true;
+                settings = {
+                  noLambdaArg = true;
+                  noLambdaPatternNames = true;
+                };
+              };
             };
           };
         };
