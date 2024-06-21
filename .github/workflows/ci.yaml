@@ -24,6 +24,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v12
         with:
           extra-conf: ${{ env.nix-conf }}
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
       - name: nix-flake-check
         run: nix flake check '${{ env.flake }}'
   flake-show:
@@ -32,6 +33,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v12
         with:
           extra-conf: ${{ env.nix-conf }}
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
       - name: nix-flake-show
         run: nix flake show '${{ env.flake }}'
   get-attrs:
@@ -43,6 +45,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v12
         with:
           extra-conf: ${{ env.nix-conf }}
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
       - id: install-jq
         run: nix profile install '${{ env.flake }}#jq'
       - id: get-attrs
@@ -133,6 +136,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v12
         with:
           extra-conf: ${{ env.nix-conf }}
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
       - name: eval
         if: ${{ matrix.attrs.evalOnly }}
         run: |
@@ -151,6 +155,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v12
         with:
           extra-conf: ${{ env.nix-conf }}
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
       - name: nix-fast-build
         if: ${{ env.system != 'aarch64-darwin' }}
         run: |
