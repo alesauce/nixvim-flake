@@ -131,7 +131,7 @@ jobs:
       matrix:
         attrs: ${{ fromJson(needs.get-attrs.outputs.eval) }}
     env:
-      system: ${{ matrix.attrs.hostPlatform }}
+      system: ${{ matrix.attrs.platform }}
     steps:
       - uses: DeterminateSystems/nix-installer-action@v12
         with:
