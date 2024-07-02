@@ -5,6 +5,5 @@
     ./luasnip.nix
     ./cmp.nix
     ./nvim-jdtls.nix
-    ./rust-tools.nix
   ];
 }
