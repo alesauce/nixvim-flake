@@ -1,6 +1,6 @@
 {
   plugins.rust-tools = {
-    enable = false;
+    enable = true;
     reloadWorkspaceFromCargoToml = true;
     inlayHints = {
       maxLenAlign = true;
