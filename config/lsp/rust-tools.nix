@@ -5,12 +5,5 @@
     inlayHints = {
       maxLenAlign = true;
     };
-    server = {
-      checkOnSave = true;
-      completion = {
-        autoimport.enable = true;
-        fullFunctionSignatures.enable = true;
-      };
-    };
   };
 }
