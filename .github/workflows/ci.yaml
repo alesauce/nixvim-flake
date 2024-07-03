@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - feat/*
+      - fix/*
+      - experiment/*
   pull_request:
 
 permissions: {}
@@ -26,7 +28,7 @@ jobs:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v7
       - name: nix-flake-check
-        run: nix flake check '${{ env.flake }}'
+        run: nix flake check '${{ env.flake }}' --show-trace
   flake-show:
     runs-on: ubuntu-latest
     steps:

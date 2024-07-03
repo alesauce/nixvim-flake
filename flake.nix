@@ -44,9 +44,6 @@
         nvim = nixvim'.makeNixvimWithModule {
           inherit pkgs;
           module = ./config/full.nix;
-          extraSpecialArgs = {
-            extraPluginsSrc = pkgs.lib.filterAttrs (n: v: pkgs.lib.hasPrefix "vimplugin-" n) inputs;
-          };
         };
       in {
         _module.args.pkgs = import inputs.nixpkgs {
