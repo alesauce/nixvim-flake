@@ -4,7 +4,6 @@
       lsp = {
         enable = true;
         servers = {
-          bashls.enable = true;
           gopls.enable = true;
           jsonls.enable = true;
           lua-ls.enable = true;
