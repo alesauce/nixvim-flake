@@ -6,5 +6,6 @@
     ./cmp.nix
     ./nvim-jdtls.nix
     ./rust-tools.nix
+    ./typescript-tools.nix
   ];
 }
