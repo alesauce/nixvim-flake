@@ -9,7 +9,6 @@
           lua-ls.enable = true;
           nil-ls.enable = true;
           pyright.enable = true;
-          tsserver.enable = true;
           yamlls.enable = true;
         };
         keymaps = {
