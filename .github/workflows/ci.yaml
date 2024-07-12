@@ -12,6 +12,7 @@ on:
 permissions: {}
 
 env:
+  XDG_DATA_HOME: ${{ github.workspace }}/.local/share
   flake: github:${{ github.repository }}/${{ github.sha }}
   nix-conf: |-
     accept-flake-config = true
