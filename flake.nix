@@ -41,10 +41,11 @@
         ...
       }: let
         nixvim' = nixvim.legacyPackages.${system};
-        nvim = nixvim'.makeNixvimWithModule {
+        nixvimModule = {
           inherit pkgs;
           module = ./config/full.nix;
         };
+        nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
@@ -56,10 +57,7 @@
         };
 
         checks = {
-          default = pkgs.nixvimLib.check.mkTestDerivationFromNvim {
-            inherit nvim;
-            name = "Nixvim configuration test";
-          };
+          default = pkgs.nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
