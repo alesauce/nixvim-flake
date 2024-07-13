@@ -5,7 +5,6 @@
     nixvimInjections = true;
     nixGrammars = true;
     settings = {
-      ensure_installed = ["all"];
       highlight.enable = true;
       indent.enable = true;
       parser_install_dir = "$XDG_DATA_HOME/nvim/treesitter";
