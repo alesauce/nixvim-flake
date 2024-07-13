@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   # TODO: configure terminal emulator: https://neovim.io/doc/user/nvim_terminal_emulator.html#terminal-emulator
   config = {
     globals = {
@@ -35,7 +35,7 @@
       tabstop = 4;
       expandtab = true;
       shiftwidth = 4;
-      smartindent = true;
+      smartindent = false;
     };
 
     autoCmd = [
