@@ -35,7 +35,7 @@
       tabstop = 4;
       expandtab = true;
       shiftwidth = 4;
-      smartindent = true;
+      smartindent = false;
     };
 
     autoCmd = [
