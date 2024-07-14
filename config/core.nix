@@ -36,6 +36,12 @@
       expandtab = true;
       shiftwidth = 4;
       smartindent = false;
+      # Folding
+      # https://www.reddit.com/r/neovim/comments/1behv16/comment/kutge8o/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+      foldmethod = "expr";
+      foldexpr = "v:lua.vim.treesitter.foldexpr()";
+      foldtext = "";
+      foldlevelstart = 99;
     };
 
     autoCmd = [
@@ -47,6 +53,7 @@
     ];
 
     extraConfigLua = ''
+      vim.opt.fillchars:append "fold: "
       vim.opt.listchars:append "eol:↴"
     '';
 
