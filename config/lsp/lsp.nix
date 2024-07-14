@@ -32,7 +32,6 @@
       lspkind = {
         enable = true;
       };
-      none-ls.enable = true;
     };
     extraConfigLuaPost = ''
       function bemol()
