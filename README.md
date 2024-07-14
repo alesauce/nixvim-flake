@@ -13,8 +13,8 @@ A lot of credit goes to [siph's nixvim flake](https://github.com/siph/nixvim-fla
 
 ### Run every change
 1. `git pull`
-1. `nix flake check --show-trace`
-1. `nix build`
+1. `nix flake check --show-trace --all-systems`
+1. To test how new configuration options actually look/work, run `nix build`, then `./result/bin/nvim <filename>`
 
 ## Using this flake
 ### Run the flake directly
