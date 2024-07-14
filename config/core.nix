@@ -44,14 +44,6 @@
       foldlevelstart = 99;
     };
 
-    autoCmd = [
-      {
-        event = "FileType";
-        pattern = "nix";
-        command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
-      }
-    ];
-
     extraConfigLua = ''
       vim.opt.fillchars:append "fold: "
       vim.opt.listchars:append "eol:↴"
