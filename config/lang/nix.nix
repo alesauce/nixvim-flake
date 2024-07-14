@@ -11,7 +11,13 @@
     plugins = {
       nix.enable = true;
       lsp.servers.nixd.enable = true;
-      # TODO: add none-ls sources
+      none-ls.sources = {
+        formatting.alejandra.enable = true;
+        diagnostics = {
+          statix.enable = true;
+          deadnix.enable = true;
+        };
+      };
     };
   };
 }
