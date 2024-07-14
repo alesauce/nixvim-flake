@@ -1,5 +1,6 @@
 {
   imports = [
+    ./lang
     ./lsp
     ./navigation
     ./visuals
