@@ -6,6 +6,8 @@
     keymaps = {
       addFile = "<leader>ha";
       toggleQuickMenu = "<leader>hm";
+      navNext = "<leader>hn";
+      navPrev = "<leader>hp";
       navFile = {
         "1" = "<C-l>";
         "2" = "<C-u>";
