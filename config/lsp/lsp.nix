@@ -26,6 +26,7 @@
             "<C-k>" = "signature_help";
             "<leader>rn" = "rename";
             "gr" = "references";
+            "<leader>ft" = "format";
           };
         };
       };
