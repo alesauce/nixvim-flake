@@ -15,8 +15,21 @@
         completeFunctionCalls = true;
         includeCompletionsWithInsertText = true;
         separateDiagnosticServer = true;
-        tsserverFormatOptions = {
+        tsserverFilePreferences = {
           quotePreference = "single";
+          includeCompletionsWithClassMemberSnippets = true;
+          # Inlay Hints
+          includeInlayParameterNameHints = "all";
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true;
+          includeInlayFunctionParameterTypeHints = true;
+          includeInlayVariableTypeHints = true;
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true;
+          includeInlayPropertyDeclarationTypeHints = true;
+          includeInlayFunctionLikeReturnTypeHints = true;
+          includeInlayEnumMemberValueHints = true;
+        };
+        tsserverFormatOptions = {
+          semicolons = "insert";
         };
       };
     };
