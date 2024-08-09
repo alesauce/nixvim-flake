@@ -4,15 +4,12 @@
   ...
 }: {
   files."ftplugin/java.lua" = {
+    # TODO: add debug adapter support
     extraPackages = with pkgs; [
       jdt-language-server
     ];
 
-    plugins.nvim-jdtls = {
-      enable = true;
-      data = ".idea/nvim-jdtls";
-    };
-
+    # TODO: add config options to use the regular client vs. this manual client by system
     extraConfigLua = ''
       local jdtls = require("jdtls")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
