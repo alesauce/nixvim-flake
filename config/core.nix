@@ -16,7 +16,7 @@
       }
     ];
 
-    luaLoader.enable = true;
+    # luaLoader.enable = true;
 
     opts = {
       showmode = false;
