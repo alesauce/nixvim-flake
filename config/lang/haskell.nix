@@ -9,6 +9,7 @@
       fast-tags
       hoogle
       haskell-language-server
+      haskell-debug-adapter
     ];
     files."ftplugin/haskell.lua" = {
       extraConfigLua = ''
