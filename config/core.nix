@@ -1,5 +1,4 @@
 {
-  # TODO: configure terminal emulator: https://neovim.io/doc/user/nvim_terminal_emulator.html#terminal-emulator
   config = {
     globals = {
       mapleader = " ";
@@ -16,6 +15,8 @@
         };
       }
     ];
+
+    luaLoader.enable = true;
 
     opts = {
       showmode = false;
