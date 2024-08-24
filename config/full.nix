@@ -9,5 +9,6 @@
     ./none-ls.nix
     ./nvim-autopairs.nix
     ./treesitter.nix
+    ./obsidian.nix
   ];
 }
