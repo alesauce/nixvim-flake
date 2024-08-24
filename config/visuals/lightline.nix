@@ -1,6 +1,8 @@
 {
   plugins.lightline = {
     enable = true;
-    colorscheme = "selenized_black";
+    settings = {
+      colorscheme = "selenized_black";
+    };
   };
 }
