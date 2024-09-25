@@ -1,6 +1,6 @@
 {
   plugins.obsidian = {
-    enable = true;
+    enable = false;
     settings = {
       disable_frontmatter = true;
       log_level = "info";
