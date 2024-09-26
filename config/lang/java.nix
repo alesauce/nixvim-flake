@@ -27,6 +27,13 @@
     plugins.nvim-jdtls = {
       enable = true;
       rootDir = helpers.mkRaw "require('jdtls.setup').find_root({ 'packageInfo' }, 'Config')";
+      cmd = [
+        (lib.getExe pkgs.jdt-language-server)
+        "-Dlog.protocol=true"
+        "-Dlog.level=ALL"
+        "--add-modules=ALL-SYSTEM"
+      ];
+      data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(root_dir, ':p:h:t')";
       extraOptions = {
         on_attach = ''
           function(client, bufnr)
@@ -38,16 +45,6 @@
             vim.keymap.set('n', '<leader>rv', jdtls.extract_variable_all, { desc = 'Extract variable', buffer = bufnr })
             vim.keymap.set('n', '<leader>rc', jdtls.extract_constant, { desc = 'Extract constant', buffer = bufnr })
           end
-        '';
-        cmd = helpers.mkRaw ''
-          {
-            "${lib.getExe pkgs.jdt-language-server}",
-            "-Dlog.protocol=true",
-            "-Dlog.level=ALL",
-            "-data",
-            os.getenv("HOME") .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(root_dir, ':p:h:t'),
-            "--add-modules=ALL-SYSTEM",
-          }
         '';
       };
       settings = {
