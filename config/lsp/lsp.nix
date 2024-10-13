@@ -6,7 +6,7 @@
         servers = {
           gopls.enable = true;
           jsonls.enable = true;
-          lua-ls.enable = true;
+          lua_ls.enable = true;
           pyright.enable = true;
           yamlls.enable = true;
         };
