@@ -11,25 +11,27 @@
     plugins.typescript-tools = {
       enable = true;
       settings = {
-        codeLens = "off";
-        completeFunctionCalls = true;
-        includeCompletionsWithInsertText = true;
-        separateDiagnosticServer = true;
-        tsserverFilePreferences = {
-          quotePreference = "single";
-          includeCompletionsWithClassMemberSnippets = true;
-          # Inlay Hints
-          includeInlayParameterNameHints = "all";
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true;
-          includeInlayFunctionParameterTypeHints = true;
-          includeInlayVariableTypeHints = true;
-          includeInlayVariableTypeHintsWhenTypeMatchesName = true;
-          includeInlayPropertyDeclarationTypeHints = true;
-          includeInlayFunctionLikeReturnTypeHints = true;
-          includeInlayEnumMemberValueHints = true;
-        };
-        tsserverFormatOptions = {
-          semicolons = "insert";
+        settings = {
+          code_lens = "off";
+          separate_diagnostic_server = true;
+          tsserver_file_preferences = {
+            quotePreference = "single";
+            includeCompletionsWithClassMemberSnippets = true;
+            # Inlay Hints
+            includeInlayParameterNameHints = "all";
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true;
+            includeInlayFunctionParameterTypeHints = true;
+            includeInlayVariableTypeHints = true;
+            includeInlayVariableTypeHintsWhenTypeMatchesName = true;
+            includeInlayPropertyDeclarationTypeHints = true;
+            includeInlayFunctionLikeReturnTypeHints = true;
+            includeInlayEnumMemberValueHints = true;
+          };
+          complete_function_calls = true;
+          include_completions_with_insert_text = true;
+          tsserver_format_options = {
+            semicolons = "insert";
+          };
         };
       };
     };
