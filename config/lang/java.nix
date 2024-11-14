@@ -52,19 +52,6 @@
       "--add-modules=ALL-SYSTEM"
     ];
     data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodifyal(_M.root_dir, ':p:h:t')";
-    extraOptions = {
-      on_attach = ''
-        function(client, bufnr)
-          local jdtls = require("jdtls")
-          local opts = { silent = true, buffer = bufnr }
-          vim.keymap.set('n', "<leader>lo", jdtls.organize_imports, { desc = 'Organize imports', buffer = bufnr })
-          vim.keymap.set('n', "<leader>df", jdtls.test_class, opts)
-          vim.keymap.set('n', "<leader>dn", jdtls.test_nearest_method, opts)
-          vim.keymap.set('n', '<leader>rv', jdtls.extract_variable_all, { desc = 'Extract variable', buffer = bufnr })
-          vim.keymap.set('n', '<leader>rc', jdtls.extract_constant, { desc = 'Extract constant', buffer = bufnr })
-        end
-      '';
-    };
     settings = {
       java = {
         signatureHelp.enable = true;
@@ -72,6 +59,9 @@
         saveActions.organizeImports = true;
         implementationsCodeLens.enable = true;
         referenceCodeLens.enable = true;
+        inlayHints = {
+          parameterNames.enabled = "all";
+        };
       };
     };
     initOptions = {
