@@ -4,6 +4,5 @@
     ./lsp.nix
     ./luasnip.nix
     ./cmp.nix
-    ./rust-tools.nix
   ];
 }
