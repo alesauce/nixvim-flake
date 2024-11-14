@@ -10,13 +10,14 @@
   ];
 
   extraConfigLuaPre = ''
-    local root_dir = require("jdtls.setup").find_root({ "packageInfo" }, "Config")
-    local ws_folders_jdtls = {}
+    local jdtls_setup = require("jdtls.setup")
+    _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
+    _M.ws_folders_jdtls = {}
     if root_dir then
      local file = io.open(root_dir .. "/.bemol/ws_root_folders")
      if file then
       for line in file:lines() do
-       table.insert(ws_folders_jdtls, "file://" .. line)
+       table.insert(_M.ws_folders_jdtls, "file://" .. line)
       end
       file:close()
      end
@@ -43,14 +44,14 @@
 
   plugins.nvim-jdtls = {
     enable = true;
-    rootDir = helpers.mkRaw "require('jdtls.setup').find_root({ 'packageInfo' }, 'Config')";
+    rootDir = helpers.mkRaw "_M.root_dir";
     cmd = [
       (lib.getExe pkgs.jdt-language-server)
       "-Dlog.protocol=true"
       "-Dlog.level=ALL"
       "--add-modules=ALL-SYSTEM"
     ];
-    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(root_dir, ':p:h:t')";
+    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodifyal(_M.root_dir, ':p:h:t')";
     extraOptions = {
       on_attach = ''
         function(client, bufnr)
@@ -74,7 +75,7 @@
       };
     };
     initOptions = {
-      workspaceFolders = helpers.mkRaw "ws_folders_jdtls";
+      workspaceFolders = helpers.mkRaw "_M.ws_folders_jdtls";
     };
   };
 }
