@@ -21,6 +21,8 @@
           {name = "nvim_lsp_signature_help";}
           {name = "luasnip";}
           {name = "buffer";}
+          {name = "tmux";}
+          {name = "git";}
         ];
         snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
       };
