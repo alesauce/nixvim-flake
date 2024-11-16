@@ -13,7 +13,7 @@
     local jdtls_setup = require("jdtls.setup")
     _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
     _M.ws_folders_jdtls = {}
-    if root_dir then
+    if _M.root_dir then
      local file = io.open(root_dir .. "/.bemol/ws_root_folders")
      if file then
       for line in file:lines() do
@@ -22,6 +22,10 @@
       file:close()
      end
     end
+
+    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+    _M.capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
   '';
 
   autoCmd = [
@@ -63,6 +67,9 @@
           parameterNames.enabled = "all";
         };
       };
+    };
+    extraOptions = {
+      capabilities = helpers.mkRaw "_M.capabilities";
     };
     initOptions = {
       workspaceFolders = helpers.mkRaw "_M.ws_folders_jdtls";
