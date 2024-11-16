@@ -21,7 +21,7 @@ jobs:
   flake-show:
     runs-on: ubuntu-latest
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v15
+      - uses: DeterminateSystems/nix-installer-action@v16
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v8
@@ -33,7 +33,7 @@ jobs:
       build: ${{ steps.get-attrs.outputs.build }}
       eval: ${{ steps.get-attrs.outputs.eval }}
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v15
+      - uses: DeterminateSystems/nix-installer-action@v16
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v8
@@ -124,7 +124,7 @@ jobs:
     env:
       system: ${{ matrix.attrs.platform }}
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v15
+      - uses: DeterminateSystems/nix-installer-action@v16
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v8
@@ -143,7 +143,7 @@ jobs:
     env:
       system: ${{ matrix.attrs.platform }}
     steps:
-      - uses: DeterminateSystems/nix-installer-action@v15
+      - uses: DeterminateSystems/nix-installer-action@v16
         with:
           extra-conf: ${{ env.nix-conf }}
       - uses: DeterminateSystems/magic-nix-cache-action@v8
