@@ -14,7 +14,7 @@
     _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
     _M.ws_folders_jdtls = {}
     if _M.root_dir then
-     local file = io.open(root_dir .. "/.bemol/ws_root_folders")
+     local file = io.open(_M.root_dir .. "/.bemol/ws_root_folders")
      if file then
       for line in file:lines() do
        table.insert(_M.ws_folders_jdtls, "file://" .. line)
