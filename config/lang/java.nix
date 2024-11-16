@@ -36,7 +36,7 @@
         function()
           local header = {
             "/*",
-            " * Copyright " .. os.date("%Y") .. " 2024 Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+            " * Copyright " .. os.date("%Y") .. " Amazon.com, Inc. or its affiliates. All Rights Reserved.",
             " * All rights reserved.",
             " */",
           }
