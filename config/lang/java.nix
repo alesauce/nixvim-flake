@@ -13,8 +13,8 @@
     local jdtls_setup = require("jdtls.setup")
     _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
     _M.ws_folders_jdtls = {}
-    if root_dir then
-     local file = io.open(root_dir .. "/.bemol/ws_root_folders")
+    if _M.root_dir then
+     local file = io.open(_M.root_dir .. "/.bemol/ws_root_folders")
      if file then
       for line in file:lines() do
        table.insert(_M.ws_folders_jdtls, "file://" .. line)
@@ -22,6 +22,10 @@
       file:close()
      end
     end
+
+    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+    _M.capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
   '';
 
   autoCmd = [
@@ -32,7 +36,7 @@
         function()
           local header = {
             "/*",
-            " * Copyright " .. os.date("%Y") .. " 2024 Amazon.com, Inc. or its affiliates. All Rights Reserved.",
+            " * Copyright " .. os.date("%Y") .. " Amazon.com, Inc. or its affiliates. All Rights Reserved.",
             " * All rights reserved.",
             " */",
           }
@@ -63,6 +67,9 @@
           parameterNames.enabled = "all";
         };
       };
+    };
+    extraOptions = {
+      capabilities = helpers.mkRaw "_M.capabilities";
     };
     initOptions = {
       workspaceFolders = helpers.mkRaw "_M.ws_folders_jdtls";
