@@ -1,5 +1,25 @@
 {
   config = {
+    extraConfigLuaPre = ''
+      _M.workspace_root_dir = vim.fs.root("Config", { "packageInfo" })
+      _M.bemol_ws_folders = {}
+      if _M.workspace_root_dir then
+       local file = io.open(_M.workspace_root_dir .. "/.bemol/ws_root_folders", "r")
+       if file then
+        for line in file:lines() do
+         table.insert(_M.bemol_ws_folders, "file://" .. line)
+        end
+        file:close()
+       end
+      end
+
+      function bemol()
+       for _, line in ipairs(_M.bemol_ws_folders) do
+        vim.lsp.buf.add_workspace_folder(line)
+       end
+      end
+    '';
+
     plugins = {
       lsp = {
         enable = true;
@@ -34,29 +54,9 @@
         enable = true;
       };
     };
-
-    extraConfigLuaPre = ''
-      _M.get_bemol_ws_folders = function()
-        local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
-        local ws_folders_lsp = {}
-        if bemol_dir then
-          local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
-          if file then
-            for line in file:lines() do
-              table.insert(ws_folders_lsp, line)
-            end
-            file:close()
-          end
-        end
-        return ws_folders_lsp
-      end
-
-      function bemol()
-       for _, line in ipairs(_M.get_bemol_ws_folders()) do
-        vim.lsp.buf.add_workspace_folder(line)
-       end
-      end
-      bemol()
-    '';
   };
+
+  extraConfigLuaPost = ''
+    bemol()
+  '';
 }
