@@ -135,4 +135,11 @@
       };
     }
   ];
+
+  plugins.which-key.settings.spec = [
+    {
+      __unkeyed = "<leader>d";
+      group = "Debugging";
+    }
+  ];
 }
