@@ -72,7 +72,7 @@
       action = ":Telescope find_files<CR>";
     }
     {
-      key = "<leader>fg";
+      key = "<leader>fl";
       action = ":Telescope live_grep<CR>";
     }
     {
@@ -90,7 +90,7 @@
     }
     # Git pickers
     {
-      key = "<leader>fc";
+      key = "<leader>fgc";
       action = ":Telescope git_commits<CR>";
     }
     {
@@ -98,7 +98,7 @@
       action = ":Telescope git_branches<CR>";
     }
     {
-      key = "<leader>fs";
+      key = "<leader>fgs";
       action = ":Telescope git_status<CR>";
     }
   ];
