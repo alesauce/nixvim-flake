@@ -88,7 +88,7 @@
     };
     initOptions = {
       bundles = helpers.mkRaw "_M.jdtls.bundles";
-      workspaceFolders = helpers.mkRaw "_M.get_bemol_ws_folders()";
+      # workspaceFolders = helpers.mkRaw "_M.get_bemol_ws_folders()";
     };
   };
 }
