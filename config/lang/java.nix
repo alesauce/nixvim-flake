@@ -70,7 +70,17 @@
     settings = {
       java = {
         signatureHelp.enable = true;
-        completion.enable = true;
+        completion = {
+          enable = true;
+          filteredTypes = [
+            "com.sun.*"
+            "io.micrometer.shaded.*"
+            "java.awt.*"
+            "jdk.*"
+            "sun.*"
+            "are.you.sure.*"
+          ];
+        };
         saveActions.organizeImports = true;
         implementationsCodeLens.enable = true;
         referenceCodeLens.enable = true;
@@ -87,7 +97,6 @@
     };
     initOptions = {
       bundles = helpers.mkRaw "_M.jdtls.bundles";
-      # workspaceFolders = helpers.mkRaw "_M.jdtls.ws_folders";
     };
   };
 }
