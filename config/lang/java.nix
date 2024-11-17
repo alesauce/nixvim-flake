@@ -17,20 +17,7 @@
     java-debug = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
     java-test = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
   in ''
-    local jdtls_setup = require("jdtls.setup")
-
-    _M.ws_folders_jdtls = {}
-    _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
-
-    if _M.root_dir then
-     local file = io.open(_M.root_dir .. "/.bemol/ws_root_folders")
-     if file then
-      for line in file:lines() do
-       table.insert(_M.ws_folders_jdtls, "file://" .. line)
-      end
-      file:close()
-     end
-    end
+    _M.jdtls_root_dir = require("jdtls.setup").find_root({ "packageInfo" }, "Config")
 
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local client_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -73,14 +60,14 @@
 
   plugins.nvim-jdtls = {
     enable = true;
-    rootDir = helpers.mkRaw "_M.root_dir";
+    rootDir = helpers.mkRaw "_M.jdtls_root_dir";
     cmd = [
       (lib.getExe pkgs.jdt-language-server)
       "-Dlog.protocol=true"
       "-Dlog.level=ALL"
       "--add-modules=ALL-SYSTEM"
     ];
-    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodifyal(_M.root_dir, ':p:h:t')";
+    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(_M.jdtls_root_dir, ':p:h:t')";
     settings = {
       java = {
         signatureHelp.enable = true;
@@ -91,13 +78,17 @@
         inlayHints = {
           parameterNames.enabled = "all";
         };
+        codeGeneration = {
+          generateComments = true;
+        };
       };
     };
     extraOptions = {
       capabilities = helpers.mkRaw "_M.capabilities";
     };
     initOptions = {
-      workspaceFolders = helpers.mkRaw "_M.ws_folders_jdtls";
+      bundles = helpers.mkRaw "_M.jdtls.bundles";
+      workspaceFolders = helpers.mkRaw "_M.get_bemol_ws_folders()";
     };
   };
 }
