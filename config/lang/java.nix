@@ -17,16 +17,27 @@
     java-debug = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
     java-test = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
   in ''
-    _M.jdtls_root_dir = require("jdtls.setup").find_root({ "packageInfo" }, "Config")
+    local jdtls = require("jdtls")
+    _M.jdtls = {}
+
+    _M.jdtls.root_dir = require("jdtls.setup").find_root({ "packageInfo" }, "Config")
+    _M.jdtls.ws_folders = {}
+    if root_dir then
+     local file = io.open(_M.jdtls.root_dir .. "/.bemol/ws_root_folders")
+     if file then
+      for line in file:lines() do
+       table.insert(_M.jdtls.ws_folders, "file://" .. line)
+      end
+      file:close()
+     end
+    end
 
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local client_capabilities = vim.lsp.protocol.make_client_capabilities()
     _M.capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
 
-    local jdtls = require("jdtls")
     local jdtls_dap = require("jdtls.dap")
 
-    _M.jdtls = {}
     _M.jdtls.bundles = {}
     local java_debug_bundle = vim.split(vim.fn.glob("${java-debug}" .. "/*.jar"), "\n")
     local java_test_bundle = vim.split(vim.fn.glob("${java-test}" .. "/*.jar", true), "\n")
@@ -60,14 +71,14 @@
 
   plugins.nvim-jdtls = {
     enable = true;
-    rootDir = helpers.mkRaw "_M.jdtls_root_dir";
+    rootDir = helpers.mkRaw "_M.jdtls.root_dir";
     cmd = [
       (lib.getExe pkgs.jdt-language-server)
       "-Dlog.protocol=true"
       "-Dlog.level=ALL"
       "--add-modules=ALL-SYSTEM"
     ];
-    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(_M.jdtls_root_dir, ':p:h:t')";
+    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(_M.jdtls.root_dir, ':p:h:t')";
     settings = {
       java = {
         signatureHelp.enable = true;
@@ -88,7 +99,7 @@
     };
     initOptions = {
       bundles = helpers.mkRaw "_M.jdtls.bundles";
-      # workspaceFolders = helpers.mkRaw "_M.get_bemol_ws_folders()";
+      workspaceFolders = helpers.mkRaw "_M.jdtls.ws_folders";
     };
   };
 }
