@@ -54,9 +54,8 @@
         enable = true;
       };
     };
+    extraConfigLuaPost = ''
+      bemol()
+    '';
   };
-
-  extraConfigLuaPost = ''
-    bemol()
-  '';
 }
