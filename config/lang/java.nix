@@ -4,15 +4,24 @@
   helpers,
   ...
 }: {
-  # TODO: add debug adapter support
-  extraPackages = with pkgs; [
-    jdt-language-server
-  ];
+  extraPackages = with pkgs;
+    [
+      jdt-language-server
+    ]
+    ++ (with vscode-extensions.vscjava; [
+      vscode-java-debug
+      vscode-java-test
+    ]);
 
-  extraConfigLuaPre = ''
+  extraConfigLuaPre = let
+    java-debug = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
+    java-test = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
+  in ''
     local jdtls_setup = require("jdtls.setup")
-    _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
+
     _M.ws_folders_jdtls = {}
+    _M.root_dir = jdtls_setup.find_root({ "packageInfo" }, "Config")
+
     if _M.root_dir then
      local file = io.open(_M.root_dir .. "/.bemol/ws_root_folders")
      if file then
@@ -26,6 +35,22 @@
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local client_capabilities = vim.lsp.protocol.make_client_capabilities()
     _M.capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
+
+    local jdtls = require("jdtls")
+    local jdtls_dap = require("jdtls.dap")
+
+    _M.jdtls = {}
+    _M.jdtls.bundles = {}
+    local java_debug_bundle = vim.split(vim.fn.glob("${java-debug}" .. "/*.jar"), "\n")
+    local java_test_bundle = vim.split(vim.fn.glob("${java-test}" .. "/*.jar", true), "\n")
+    -- add jars to the bundle list if there are any
+    if java_debug_bundle[1] ~= "" then
+        vim.list_extend(_M.jdtls.bundles, java_debug_bundle)
+    end
+
+    if java_test_bundle[1] ~= "" then
+        vim.list_extend(_M.jdtls.bundles, java_test_bundle)
+    end
   '';
 
   autoCmd = [
