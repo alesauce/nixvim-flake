@@ -10,5 +10,6 @@
     ./nvim-autopairs.nix
     ./treesitter.nix
     ./obsidian.nix
+    ./dap.nix
   ];
 }
