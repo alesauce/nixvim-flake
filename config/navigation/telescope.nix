@@ -19,9 +19,18 @@
             "e" = "move_selection_previous";
           };
         };
+        file_ignore_patterns = [
+          "^.git/"
+          "^.mypy_cache/"
+          "^__pycache__/"
+          "^output/"
+          "^data/"
+          "%.ipynb"
+        ];
       };
     };
     extensions = {
+      fzf-native.enable = true;
       file-browser = {
         enable = true;
         settings = {
@@ -37,13 +46,23 @@
           find_cmd = "rg";
         };
       };
-      # TODO: add frecency extension - https://github.com/nvim-telescope/telescope-frecency.nvim
-      # nixvim docs: https://nix-community.github.io/nixvim/#_plugins_telescope_extensions_frecency_enable
-      # TODO: add project extension - https://github.com/nvim-telescope/telescope-project.nvim
-      # nixvim docs: https://nix-community.github.io/nixvim/#_plugins_telescope_extensions_project_nvim_enable
+      frecency = {
+        enable = true;
+        settings = {
+          disable_devicons = false;
+          show_unindexed = true;
+        };
+      };
     };
   };
+  plugins.which-key.settings.spec = [
+    {
+      __unkeyed = "<leader>f";
+      group = "Telescope Finders";
+    }
+  ];
   keymaps = [
+    # File pickers
     {
       key = "<leader>fb";
       action = ":Telescope file_browser<CR>";
@@ -55,6 +74,32 @@
     {
       key = "<leader>fg";
       action = ":Telescope live_grep<CR>";
+    }
+    {
+      key = "<leader>fgi";
+      action = ":Telescope git_files<CR>";
+    }
+    # LSP pickers
+    {
+      key = "<leader>fr";
+      action = ":Telescope lsp_references<CR>";
+    }
+    {
+      key = "<leader>fd";
+      action = ":Telescope diagnostics<CR>";
+    }
+    # Git pickers
+    {
+      key = "<leader>fc";
+      action = ":Telescope git_commits<CR>";
+    }
+    {
+      key = "<leader>fgb";
+      action = ":Telescope git_branches<CR>";
+    }
+    {
+      key = "<leader>fs";
+      action = ":Telescope git_status<CR>";
     }
   ];
 }
