@@ -10,7 +10,12 @@
 
     plugins = {
       nix.enable = true;
-      lsp.servers.nixd.enable = true;
+      lsp.servers.nixd = {
+        enable = true;
+        extraOptions = {
+          offset_encoding = "utf-8";
+        };
+      };
       none-ls.sources = {
         formatting.alejandra.enable = true;
         diagnostics = {
