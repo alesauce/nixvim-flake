@@ -31,6 +31,7 @@
     };
     extensions = {
       fzf-native.enable = true;
+      ui-select.enable = true;
       file-browser = {
         enable = true;
         settings = {
