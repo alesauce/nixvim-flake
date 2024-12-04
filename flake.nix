@@ -26,7 +26,6 @@
   };
 
   outputs = {
-    nixpkgs,
     nixvim,
     flake-parts,
     ...
@@ -48,15 +47,6 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues {
-            default = import ./overlay {
-              inherit inputs;
-            };
-          };
-        };
-
         checks = {
           default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
