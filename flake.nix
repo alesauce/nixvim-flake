@@ -26,13 +26,26 @@
   };
 
   outputs = {
+    self,
     nixvim,
     flake-parts,
     ...
   } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+    flake-parts.lib.mkFlake {inherit inputs;}
+    {
       systems = ["aarch64-linux" "x86_64-linux" "aarch64-darwin"];
 
+      flake = {
+        overlays.default = final: prev: {
+          kotlin-language-server = prev.kotlin-language-server.overrideAttrs rec {
+            version = "1.3.3";
+            src = prev.fetchzip {
+              url = "https://github.com/fwcd/kotlin-language-server/releases/download/${version}/server.zip";
+              hash = "sha256-m0AgPJ8KgzOxHPB33pgSFe7JQxidPkhDUga56LuaDBA=";
+            };
+          };
+        };
+      };
       perSystem = {
         system,
         pkgs,
@@ -47,6 +60,10 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [self.overlays.default];
+        };
         checks = {
           default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
           pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
