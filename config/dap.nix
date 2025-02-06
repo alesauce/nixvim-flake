@@ -1,32 +1,32 @@
 {
-  plugins.dap = {
-    enable = true;
-    extensions = {
-      dap-ui.enable = true;
-      dap-virtual-text.enable = true;
-    };
-    signs = {
-      dapBreakpoint = {
-        text = "";
-        texthl = "DapBreakpoint";
-      };
-      dapBreakpointCondition = {
-        text = "";
-        texthl = "dapBreakpointCondition";
-      };
-      dapBreakpointRejected = {
-        text = "";
-        texthl = "DapBreakpointRejected";
-      };
-      dapLogPoint = {
-        text = "";
-        texthl = "DapLogPoint";
-      };
-      dapStopped = {
-        text = "";
-        texthl = "DapStopped";
+  plugins = {
+    dap = {
+      enable = true;
+      signs = {
+        dapBreakpoint = {
+          text = "";
+          texthl = "DapBreakpoint";
+        };
+        dapBreakpointCondition = {
+          text = "";
+          texthl = "dapBreakpointCondition";
+        };
+        dapBreakpointRejected = {
+          text = "";
+          texthl = "DapBreakpointRejected";
+        };
+        dapLogPoint = {
+          text = "";
+          texthl = "DapLogPoint";
+        };
+        dapStopped = {
+          text = "";
+          texthl = "DapStopped";
+        };
       };
     };
+    dap-ui.enable = true;
+    dap-virtual-text.enable = true;
   };
 
   keymaps = [

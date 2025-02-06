@@ -14,6 +14,14 @@
           desc = "Mapping space to Nop for global leader use";
         };
       }
+      {
+        key = ";";
+        action = ":";
+        options = {
+          silent = true;
+          desc = "Mapping semicolon to colon in normal mode";
+        };
+      }
     ];
 
     luaLoader.enable = true;
