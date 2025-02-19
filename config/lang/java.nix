@@ -18,13 +18,13 @@
     java-test = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
   in ''
     local jdtls = require("jdtls")
+    local jdtls_dap = require("jdtls.dap")
+    local jdtls_setup = require("jdtls.setup")
     _M.jdtls = {}
 
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local client_capabilities = vim.lsp.protocol.make_client_capabilities()
     _M.capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
-
-    local jdtls_dap = require("jdtls.dap")
 
     _M.jdtls.bundles = {}
     local java_debug_bundle = vim.split(vim.fn.glob("${java-debug}" .. "/*.jar"), "\n")
@@ -96,7 +96,7 @@
       capabilities = helpers.mkRaw "_M.capabilities";
     };
     initOptions = {
-      bundles = helpers.mkRaw "_M.jdtls.bundles";
+      bundles.__raw = "_M.jdtls.bundles";
     };
   };
 }
