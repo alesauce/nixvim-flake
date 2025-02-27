@@ -48,7 +48,7 @@
       "-Dlog.level=ALL"
       "--add-modules=ALL-SYSTEM"
     ];
-    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(_M.workspace_root_dir, ':p:h:t')";
+    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')";
     settings = {
       java = {
         signatureHelp.enable = true;
