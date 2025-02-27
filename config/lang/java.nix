@@ -63,7 +63,6 @@
             "are.you.sure.*"
           ];
         };
-        saveActions.organizeImports = true;
         implementationsCodeLens.enable = true;
         referenceCodeLens.enable = true;
         inlayHints = {
