@@ -39,24 +39,6 @@
     end
   '';
 
-  autoCmd = [
-    {
-      event = "BufNewFile";
-      pattern = "*.java";
-      callback.__raw = ''
-        function()
-          local header = {
-            "/*",
-            " * Copyright " .. os.date("%Y") .. " Amazon.com, Inc. or its affiliates. All Rights Reserved.",
-            " * All rights reserved.",
-            " */",
-          }
-          vim.api.nvim_buf_set_lines(0, 0, 0, false, header)
-        end
-      '';
-    }
-  ];
-
   plugins.nvim-jdtls = {
     enable = true;
     rootDir = helpers.mkRaw "_M.workspace_root_dir";
