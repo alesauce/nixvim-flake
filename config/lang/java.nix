@@ -70,6 +70,7 @@
     extraOptions = {
       onAttach = helpers.mkRaw ''
         function(client, bufnr)
+          vim.lsp.set_log_level("debug")
           jdtls.setup_dap({hotcodereplace = 'auto'})
           jdtls.setup.add_commands()
           bemol()
