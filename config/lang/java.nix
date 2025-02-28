@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   helpers,
   ...
 }: {
@@ -33,13 +32,8 @@
 
   plugins.nvim-jdtls = {
     enable = true;
-    cmd = [
-      (lib.getExe pkgs.jdt-language-server)
-      "-Dlog.protocol=true"
-      "-Dlog.level=ALL"
-      "--add-modules=ALL-SYSTEM"
-    ];
-    data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')";
+    configuration.__raw = ''vim.fn.stdpath 'cache' .. "/jdtls/config"'';
+    data = helpers.mkRaw "os.getenv('HOME') .. '/.local/share/eclipse' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')";
     settings = {
       java = {
         configuration = {
