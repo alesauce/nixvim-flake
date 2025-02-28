@@ -50,13 +50,13 @@
             "gr" = "references";
           };
         };
+        onAttach = ''
+          bemol()
+        '';
       };
       lspkind = {
         enable = true;
       };
     };
-    extraConfigLuaPost = ''
-      bemol()
-    '';
   };
 }
