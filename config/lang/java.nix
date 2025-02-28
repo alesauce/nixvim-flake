@@ -68,7 +68,7 @@
       bundles = helpers.mkRaw "_M.jdtls.bundles";
     };
     extraOptions = {
-      onAttach = ''
+      onAttach = helpers.mkRaw ''
         function(client, bufnr)
           jdtls.setup_dap({hotcodereplace = 'auto'})
           jdtls.setup.add_commands()
