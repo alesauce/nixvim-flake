@@ -14,14 +14,21 @@
     _M.jdtls.bundles = {}
     local java_debug_bundle = vim.split(vim.fn.glob("${java-debug}" .. "/*.jar"), "\n")
     local java_test_bundle = vim.split(vim.fn.glob("${java-test}" .. "/*.jar", true), "\n")
-    -- add jars to the bundle list if there are any
-    if java_debug_bundle[1] ~= "" then
-        vim.list_extend(_M.jdtls.bundles, java_debug_bundle)
-    end
 
-    if java_test_bundle[1] ~= "" then
-        vim.list_extend(_M.jdtls.bundles, java_test_bundle)
+    -- Following filters out unwanted bundles
+    local ignored_bundles = { "com.microsoft.java.test.runner-jar-with-dependencies.jar", "jacocoagent.jar" }
+    local find = string.find
+    local function should_ignore_bundle(bundle)
+        for _, ignored in ipairs(ignored_bundles) do
+            if find(bundle, ignored, 1, true) then
+                return true
+            end
+        end
     end
+    local filtered_java_debug_bundle = vim.tbl_filter(function(bundle) return bundle ~= "" and not should_ignore_bundle(bundle) end, java_debug_bundle)
+    local filtered_java_test_bundle = vim.tbl_filter(function(bundle) return bundle ~= "" and not should_ignore_bundle(bundle) end, java_test_bundle)
+    vim.list_extend(_M.jdtls.bundles, java_debug_bundle)
+    vim.list_extend(_M.jdtls.bundles, java_test_bundle)
   '';
 
   plugins.nvim-jdtls = {
