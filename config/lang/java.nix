@@ -10,6 +10,7 @@
   in ''
     local jdtls_dap = require("jdtls.dap")
 
+    _M.jdtls = {}
     _M.jdtls.bundles = {}
     local java_debug_bundle = vim.split(vim.fn.glob("${java-debug}" .. "/*.jar"), "\n")
     local java_test_bundle = vim.split(vim.fn.glob("${java-test}" .. "/*.jar", true), "\n")
