@@ -4,26 +4,10 @@
   helpers,
   ...
 }: {
-  extraPackages = with pkgs;
-    [
-      jdt-language-server
-    ]
-    ++ (with vscode-extensions.vscjava; [
-      vscode-java-debug
-      vscode-java-test
-    ]);
-
   extraConfigLuaPre = let
     java-debug = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
     java-test = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server";
   in ''
-    local jdtls = require("jdtls")
-    _M.jdtls = {}
-
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
-    local client_capabilities = vim.lsp.protocol.make_client_capabilities()
-    _M.capabilities = cmp_nvim_lsp.default_capabilities(client_capabilities)
-
     local jdtls_dap = require("jdtls.dap")
 
     _M.jdtls.bundles = {}
@@ -41,7 +25,6 @@
 
   plugins.nvim-jdtls = {
     enable = true;
-    rootDir = helpers.mkRaw "_M.workspace_root_dir";
     cmd = [
       (lib.getExe pkgs.jdt-language-server)
       "-Dlog.protocol=true"
@@ -72,9 +55,6 @@
           generateComments = true;
         };
       };
-    };
-    extraOptions = {
-      capabilities = helpers.mkRaw "_M.capabilities";
     };
     initOptions = {
       bundles = helpers.mkRaw "_M.jdtls.bundles";
