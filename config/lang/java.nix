@@ -42,6 +42,12 @@
     data.__raw = "os.getenv('HOME') .. '/.local/share/eclipse/' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')";
     settings = {
       java = {
+        configuration = {
+          runtimes = [
+            pkgs.jdk
+            pkgs.jdk17
+          ];
+        };
         signatureHelp.enable = true;
         completion = {
           enable = true;
