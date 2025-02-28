@@ -27,8 +27,8 @@
     end
     local filtered_java_debug_bundle = vim.tbl_filter(function(bundle) return bundle ~= "" and not should_ignore_bundle(bundle) end, java_debug_bundle)
     local filtered_java_test_bundle = vim.tbl_filter(function(bundle) return bundle ~= "" and not should_ignore_bundle(bundle) end, java_test_bundle)
-    vim.list_extend(_M.jdtls.bundles, java_debug_bundle)
-    vim.list_extend(_M.jdtls.bundles, java_test_bundle)
+    vim.list_extend(_M.jdtls.bundles, filtered_java_debug_bundle)
+    vim.list_extend(_M.jdtls.bundles, filtered_java_test_bundle)
   '';
 
   plugins.nvim-jdtls = {
