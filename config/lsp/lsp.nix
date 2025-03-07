@@ -1,7 +1,7 @@
 {
   config = {
     extraConfigLuaPre = ''
-      local function bemol()
+      function _M.bemol()
           local bemol_dir = vim.fs.find({ ".bemol" }, { upward = true, type = "directory" })[1]
           local ws_folders_lsp = {}
           if bemol_dir then
@@ -14,9 +14,7 @@
               end
 
               for _, line in ipairs(ws_folders_lsp) do
-                  if not contains(vim.lsp.buf.list_workspace_folders(), line) then
-                      vim.lsp.buf.add_workspace_folder(line)
-                  end
+                  vim.lsp.buf.add_workspace_folder(line)
               end
           end
       end
@@ -51,7 +49,7 @@
           };
         };
         onAttach = ''
-          bemol()
+          _M.bemol()
         '';
       };
       lspkind = {
