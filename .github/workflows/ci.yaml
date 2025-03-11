@@ -115,6 +115,7 @@ jobs:
           echo "eval=$(<"$TMP/eval.json")" >>"$GITHUB_OUTPUT"
   eval:
     name: eval ${{ matrix.attrs.name }}
+    if: ${{ fromJson(needs.get-attrs.outputs.eval)[0] != null }}
     runs-on: ${{ matrix.attrs.runsOn }}
     needs: [ get-attrs ]
     strategy:
