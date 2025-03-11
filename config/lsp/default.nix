@@ -3,6 +3,6 @@
     ./lsp-lines.nix
     ./lsp.nix
     ./luasnip.nix
-    ./cmp.nix
+    ./blink.nix
   ];
 }
