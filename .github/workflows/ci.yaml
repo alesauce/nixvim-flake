@@ -48,7 +48,6 @@ jobs:
           summary "# CI"
           TMP="$(mktemp -d)"
           # platform packages
-          # XXX Removing build for aarch64 linux for now until I can get self-hosted setup
           nix flake show --json --all-systems '${{ env.flake }}' | jq '
             .packages
             | to_entries
@@ -61,6 +60,7 @@ jobs:
             | map(
               if .platform  == "x86_64-linux" then .runsOn="ubuntu-latest"
               elif .platform == "aarch64-darwin" then .runsOn="macos-latest"
+              elif .platform == "aarch64-linux" then .runsOn="ubuntu-24.04-arm"
               else .evalOnly=true | .runsOn="ubuntu-latest"
               end
             )
