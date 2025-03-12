@@ -19,8 +19,13 @@
       };
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -31,60 +36,93 @@
     flake-parts,
     ...
   } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;}
-    {
-      systems = ["aarch64-linux" "x86_64-linux" "aarch64-darwin"];
-
-      perSystem = {
-        system,
-        pkgs,
-        self',
-        ...
-      }: let
-        nixvimLib = nixvim.lib.${system};
-        nixvim' = nixvim.legacyPackages.${system};
-        nixvimModule = {
-          inherit pkgs;
-          module = import ./config/full.nix;
+    flake-parts.lib.mkFlake {inherit inputs;} (
+      {lib, ...}: let
+        githubPlatforms = {
+          "aarch64-linux" = "ubuntu-24.04-arm";
+          "x86_64-linux" = "ubuntu-latest";
+          "aarch64-darwin" = "macos-latest";
         };
-        nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
+        systems = lib.attrNames githubPlatforms;
+
+        imports = [
+          inputs.git-hooks.flakeModule
+        ];
+
+        flake = {
+          overlays.default = final: prev: {
+            alesauce-nixvim = self.packages.${final.stdenv.hostPlatform.system}.neovim;
+          };
+          githubActions = let
+            githubSystems = lib.attrNames githubPlatforms;
+            ciPkgs = ["neovim"];
+            checkDrvs = lib.getAttrs githubSystems self.checks;
+            pkgDrvs = lib.genAttrs githubSystems (
+              system: lib.genAttrs ciPkgs (pkg: self.packages.${system}.${pkg})
+            );
+          in
+            inputs.nix-github-actions.lib.mkGithubMatrix {
+              checks = lib.recursiveUpdate checkDrvs pkgDrvs;
+              platforms = githubPlatforms;
+            };
         };
-        checks = {
-          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              statix.enable = true;
-              alejandra.enable = true;
-              actionlint.enable = true;
-              deadnix = {
-                enable = true;
-                settings = {
-                  noLambdaArg = true;
-                  noLambdaPatternNames = true;
+
+        perSystem = {
+          config,
+          system,
+          pkgs,
+          self',
+          ...
+        }: let
+          nixvimLib = nixvim.lib.${system};
+          nixvim' = nixvim.legacyPackages.${system};
+          nixvimModule = {
+            inherit pkgs;
+            module = import ./config/full.nix;
+          };
+        in {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+          };
+          checks.nixvim = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+          pre-commit = {
+            check.enable = true;
+            settings = {
+              hooks = {
+                statix.enable = true;
+                alejandra.enable = true;
+                actionlint.enable = true;
+                deadnix = {
+                  enable = true;
+                  settings = {
+                    noLambdaArg = true;
+                    noLambdaPatternNames = true;
+                  };
                 };
               };
             };
           };
-        };
 
-        formatter = pkgs.alejandra;
+          formatter = pkgs.alejandra;
 
-        packages = {
-          inherit (pkgs) jq nix-fast-build;
-          default = nvim;
-        };
+          packages = rec {
+            inherit (pkgs) jq nix-fast-build;
+            default = neovim;
+            neovim = nixvim'.makeNixvimWithModule nixvimModule;
+          };
 
-        devShells = {
-          default = with pkgs;
-            mkShell {
-              inherit (self'.checks.pre-commit-check) shellHook;
-              nativeBuildInputs = [jq];
-            };
+          devShells = {
+            default = with pkgs;
+              mkShell {
+                name = "nixvim-flake";
+                nativeBuildInputs = [jq];
+                shellHook = ''
+                  ${config.pre-commit.installationScript}
+                '';
+              };
+          };
         };
-      };
-    };
+      }
+    );
 }
