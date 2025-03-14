@@ -6,8 +6,7 @@
     tmux-navigator.enable = true;
     todo-comments.enable = true;
     web-devicons.enable = true;
-    # TODO: configure which-key: https://github.com/folke/which-key.nvim
-    # nixvim docs: https://nix-community.github.io/nixvim/#_plugins_which_key_enable
     which-key.enable = true;
+    lz-n.enable = true;
   };
 }
