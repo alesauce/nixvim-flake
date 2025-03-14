@@ -11,5 +11,6 @@
     ./treesitter.nix
     ./obsidian.nix
     ./dap.nix
+    ./snacks.nix
   ];
 }
