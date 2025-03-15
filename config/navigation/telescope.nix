@@ -1,6 +1,10 @@
 {
+  lib,
+  config,
+  ...
+}: {
   plugins.telescope = {
-    enable = true;
+    enable = false;
     settings = {
       defaults = {
         prompt_prefix = " ";
@@ -58,49 +62,53 @@
   };
   plugins.which-key.settings.spec = [
     {
+      mode = "n";
       __unkeyed = "<leader>f";
-      group = "Telescope Finders";
+      icon = "󰭎";
+      group = "Finders";
     }
   ];
-  keymaps = [
-    # File pickers
-    {
-      key = "<leader>fb";
-      action = ":Telescope file_browser<CR>";
-    }
-    {
-      key = "<leader>ff";
-      action = ":Telescope find_files<CR>";
-    }
-    {
-      key = "<leader>fl";
-      action = ":Telescope live_grep<CR>";
-    }
-    {
-      key = "<leader>fgi";
-      action = ":Telescope git_files<CR>";
-    }
-    # LSP pickers
-    {
-      key = "<leader>fr";
-      action = ":Telescope lsp_references<CR>";
-    }
-    {
-      key = "<leader>fd";
-      action = ":Telescope diagnostics<CR>";
-    }
-    # Git pickers
-    {
-      key = "<leader>fgc";
-      action = ":Telescope git_commits<CR>";
-    }
-    {
-      key = "<leader>fgb";
-      action = ":Telescope git_branches<CR>";
-    }
-    {
-      key = "<leader>fgs";
-      action = ":Telescope git_status<CR>";
-    }
-  ];
+  keymaps =
+    lib.mkIf config.plugins.telescope.enable
+    [
+      # File pickers
+      {
+        key = "<leader>fb";
+        action = ":Telescope file_browser<CR>";
+      }
+      {
+        key = "<leader>ff";
+        action = ":Telescope find_files<CR>";
+      }
+      {
+        key = "<leader>fl";
+        action = ":Telescope live_grep<CR>";
+      }
+      {
+        key = "<leader>fgi";
+        action = ":Telescope git_files<CR>";
+      }
+      # LSP pickers
+      {
+        key = "<leader>fr";
+        action = ":Telescope lsp_references<CR>";
+      }
+      {
+        key = "<leader>fd";
+        action = ":Telescope diagnostics<CR>";
+      }
+      # Git pickers
+      {
+        key = "<leader>fgc";
+        action = ":Telescope git_commits<CR>";
+      }
+      {
+        key = "<leader>fgb";
+        action = ":Telescope git_branches<CR>";
+      }
+      {
+        key = "<leader>fgs";
+        action = ":Telescope git_status<CR>";
+      }
+    ];
 }
