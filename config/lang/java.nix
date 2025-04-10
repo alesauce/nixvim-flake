@@ -1,6 +1,7 @@
 {
   pkgs,
   helpers,
+  lib,
   ...
 }: {
   extraConfigLuaPre = let
@@ -30,12 +31,21 @@
     vim.list_extend(_M.jdtls.bundles, filtered_java_test_bundle)
   '';
 
-  plugins.nvim-jdtls = {
+  plugins.jdtls = {
     enable = true;
-    configuration.__raw = ''vim.fn.stdpath 'cache' .. "/jdtls/config"'';
-    data = helpers.mkRaw "os.getenv('HOME') .. '/.local/share/eclipse' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')";
     settings = {
+      cmd = [
+        (lib.getExe pkgs.jdt-language-server)
+        "-Dlog.protocol=true"
+        "-Dlog.level=ALL"
+        "--add-modules=ALL-SYSTEM"
+        "-data"
+        ''os.getenv('HOME') .. '/.local/share/eclipse' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')''
+        "-configuration"
+        ''vim.fn.stdpath 'cache' .. "/jdtls/config"''
+      ];
       java = {
+        root_dir.__raw = "require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'build.gradle.kts'})";
         configuration = {
           runtimes = [
             pkgs.jdk
@@ -63,19 +73,9 @@
           generateComments = true;
         };
       };
-    };
-    initOptions = {
-      bundles = helpers.mkRaw "_M.jdtls.bundles";
-    };
-    extraOptions = {
-      onAttach = helpers.mkRaw ''
-        function(client, bufnr)
-          vim.lsp.set_log_level("debug")
-          jdtls.setup_dap({hotcodereplace = 'auto'})
-          jdtls.setup.add_commands()
-          _M.bemol()
-        end
-      '';
+      init_options = {
+        bundles = helpers.mkRaw "_M.jdtls.bundles";
+      };
     };
   };
 }
