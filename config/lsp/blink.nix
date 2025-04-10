@@ -6,6 +6,13 @@
         keymap = {
           preset = "enter";
         };
+        completion = {
+          list = {
+            selection = {
+              preselect = false;
+            };
+          };
+        };
       };
     };
     cmp-tmux.enable = true;
