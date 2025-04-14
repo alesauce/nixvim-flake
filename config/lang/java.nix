@@ -40,12 +40,19 @@
         "-Dlog.level=ALL"
         "--add-modules=ALL-SYSTEM"
         "-data"
-        ''os.getenv('HOME') .. '/.local/share/eclipse' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')''
+        {
+          __raw = "os.getenv('HOME') .. '/.local/share/eclipse' .. vim.fn.fnamemodify(vim.fs.root(0, '.git'), ':p:h:t')";
+        }
         "-configuration"
-        ''vim.fn.stdpath 'cache' .. "/jdtls/config"''
+        {
+          __raw = "vim.fn.stdpath 'cache' .. '/jdtls/config'";
+        }
       ];
+      root_dir.__raw = "require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'build.gradle.kts'})";
+      init_options = {
+        bundles = helpers.mkRaw "_M.jdtls.bundles";
+      };
       java = {
-        root_dir.__raw = "require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'build.gradle.kts'})";
         configuration = {
           runtimes = [
             pkgs.jdk
@@ -72,9 +79,6 @@
         codeGeneration = {
           generateComments = true;
         };
-      };
-      init_options = {
-        bundles = helpers.mkRaw "_M.jdtls.bundles";
       };
     };
   };
