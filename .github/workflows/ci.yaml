@@ -27,7 +27,6 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v17
         with:
           extra-conf: ${{ env.nix-conf }}
-      - uses: DeterminateSystems/magic-nix-cache-action@v9
       - name: nix-flake-show
         run: nix flake show '${{ env.flake }}'
 
@@ -56,7 +55,6 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v17
         with:
           extra-conf: ${{ env.nix-conf }}
-      - uses: DeterminateSystems/magic-nix-cache-action@v9
       - name: nix-fast-build
         run: |
           nix run '${{ env.flake }}#nix-fast-build' -- \
