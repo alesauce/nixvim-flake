@@ -39,7 +39,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} (
       {lib, ...}: let
         githubPlatforms = {
-          "aarch64-linux" = "ubuntu-24.04-arm";
+          # "aarch64-linux" = "ubuntu-24.04-arm";
           "x86_64-linux" = "ubuntu-latest";
           "aarch64-darwin" = "macos-latest";
         };
