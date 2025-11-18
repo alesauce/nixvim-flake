@@ -2,34 +2,19 @@
   plugins.obsidian = {
     enable = false;
     settings = {
-      disable_frontmatter = true;
       log_level = "info";
-      open_notes_in = "vsplit";
-      preferred_link_style = "wiki";
-      sort_by = "modified";
       sort_reversed = true;
       templates.subdir = "_templates";
-      completion = {
-        min_chars = 2;
-        nvim_cmp = true;
-      };
       daily_notes = {
         folder = "logs";
       };
-      picker.name = "telescope.nvim";
+      picker.name = "snacks.pick";
       workspaces = [
         {
           name = "main";
-          path = "~/vaults/second-brain";
-        }
-        {
-          name = "recipes";
-          path = "~/vaults/recipes";
+          path = "~/workplace/vaults/second-brain";
         }
       ];
-      ui = {
-        enable = true;
-      };
     };
   };
 
