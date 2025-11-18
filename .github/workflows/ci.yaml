@@ -24,9 +24,13 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, ubuntu-24.04-arm ]
     steps:
+      - name: Clear out space for Nix (not on macOS)
+        uses: wimpysworld/nothing-but-nix@10c936d9e46521bf923f75458e0cbd4fa309300d
+        if: ${{ runner.os != 'macOS'}}
       - uses: DeterminateSystems/nix-installer-action@v19
         with:
           extra-conf: ${{ env.nix-conf }}
+          determinate: false
       - name: nix-flake-show
         run: nix flake show '${{ env.flake }}'
 
@@ -35,9 +39,13 @@ jobs:
     outputs:
       matrix: ${{ steps.gen-matrix.outputs.matrix }}
     steps:
+      - name: Clear out space for Nix (not on macOS)
+        uses: wimpysworld/nothing-but-nix@10c936d9e46521bf923f75458e0cbd4fa309300d
+        if: ${{ runner.os != 'macOS'}}
       - uses: DeterminateSystems/nix-installer-action@v19
         with:
           extra-conf: ${{ env.nix-conf }}
+          determinate: false
       - id: gen-matrix
         run: |
           set -Eeu
@@ -52,9 +60,13 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.nix-matrix.outputs.matrix) }}
     steps:
+      - name: Clear out space for Nix (not on macOS)
+        uses: wimpysworld/nothing-but-nix@10c936d9e46521bf923f75458e0cbd4fa309300d
+        if: ${{ runner.os != 'macOS'}}
       - uses: DeterminateSystems/nix-installer-action@v19
         with:
           extra-conf: ${{ env.nix-conf }}
+          determinate: false
       - name: nix-fast-build
         run: |
           nix run '${{ env.flake }}#nix-fast-build' -- \
